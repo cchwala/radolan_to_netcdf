@@ -3,7 +3,7 @@ import netCDF4
 from datetime import datetime
 import numpy as np
 
-from radolan_product_netcdf_config import radolan_product_netcdf_config
+from .radolan_product_netcdf_config import radolan_product_netcdf_config
 
 
 def create_empty_netcdf(fn, product_name=None, product_config_dict=None):
