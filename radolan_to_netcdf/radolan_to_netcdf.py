@@ -109,6 +109,7 @@ def create_empty_netcdf(fn, product_name=None, product_config_dict=None):
 
         # global attributes
         nc_fh.title = 'RADOLAN %s rainfall data' % product_name
+        nc_fh.producttype = product_name
         # nc_fh.source = 'ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/hourly/radolan/'
         nc_fh.institution = 'Deutscher Wetterdienst (DWD)'
         nc_fh.history = 'Created at ' + str(datetime.utcnow())
@@ -158,11 +159,39 @@ def append_to_netcdf(fn, data_list, metadata_list):
                                                     calendar=nc_fh[
                                                         'time'].calendar)
 
-            # TODO: Add more flexibility like for NetCDF file creation
-            temp_data = data.copy()
-            temp_data[np.isnan(temp_data)] = -999.9
+            product_name = metadata['producttype']
+            product_config_dict = radolan_product_netcdf_config[product_name]
+
+            if product_name != nc_fh.producttype:
+                raise ValueError('RADOLAN product of data is `%s` and '
+                                 'is `%s` in existing NetCDF' %
+                                 (product_name, nc_fh.producttype))
+
+            variable_names = list(product_config_dict['variables'].keys())
+            if len(variable_names) != 1:
+                raise NotImplementedError('Writting the actual RADOLAN data '
+                                          'to NetCDF is only supported for '
+                                          'one `variable`.')
+
+            variable_name = variable_names[0]
+            variable_config = product_config_dict['variables'][variable_name]
+
+            if 'fill_value' in variable_config['variable_parameters']:
+                fill_value = (variable_config
+                              ['variable_parameters']
+                              ['fill_value'])
+                offset = variable_config['attributes']['add_offset']
+                scale_factor = variable_config['attributes']['scale_factor']
+
+                fill_value_float = fill_value*scale_factor + offset
+
+                temp_data = data.copy()
+                temp_data[np.isnan(temp_data)] = fill_value_float
+            else:
+                temp_data = data
             nc_fh['rainfall_amount'][i_new, :, :] = temp_data
 
+            # TODO make this more flexible and also test for it !!!
             nc_fh['maxrange'][i_new] = int(metadata['maxrange'].split(' ')[0])
             nc_fh['radarlocations'][i_new] = ' '.join(
                 metadata['radarlocations'])
