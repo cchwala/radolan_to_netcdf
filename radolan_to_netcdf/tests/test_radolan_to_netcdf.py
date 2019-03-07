@@ -15,6 +15,7 @@ def get_test_data_path():
 def get_test_data_for_product(product_name):
     fn_patterns = {
         'RW': 'radolan_rw/raa01-rw_10000-181122*---bin.gz',
+        'YW': 'radolan_yw/raa01-yw2017.002_10000*bin.gz'
     }
 
     return glob.glob(os.path.join(get_test_data_path(),
@@ -49,4 +50,6 @@ def parse_and_validate_test_data(product_name):
 class TestWriteToFile(unittest.TestCase):
     def test_RW(self):
         parse_and_validate_test_data(product_name='RW')
+    def test_YW(self):
+        parse_and_validate_test_data(product_name='YW')
 
