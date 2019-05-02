@@ -1,29 +1,40 @@
 # Config file for automatic testing at travis-ci.org
 
 language: python
-python:
-  - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
+sudo: false
+matrix:
+    include:
+    - python: "3.6"
+      env: DEPS="wradlib>=1.2.1
+                 netCDF4
+                 numpy"
 
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
+# setup adapted from https://github.com/bsmurphy/PyKrige/blob/master/.travis.yml
+before_install:
+    - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
+    - chmod +x miniconda.sh
+    - ./miniconda.sh -b
+    - export PATH=/home/travis/miniconda2/bin:$PATH
+    - conda config --add channels conda-forge
+    - conda update --yes conda
+    - conda info -a
 
-# Command to run tests, e.g. python setup.py test
-script: tox
+install:
+    - conda create -q -n radola_to_netcdf-env python=${TRAVIS_PYTHON_VERSION} --yes
+    - source activate radola_to_netcdf-env
+    - conda install --yes $DEPS pip
+    - conda install -c conda-forge --yes codecov
+    #- pip install coveralls
+    - pip install pytest pytest-cov
+    - python -V
+    #- python setup.py build_ext --inplace
+    - python setup.py install
+    - pwd
+    - du -h
 
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: cchwala
-  password:
-    secure: PLEASE_REPLACE_ME
-  on:
-    tags: true
-    repo: cchwala/radolan_to_netcdf
-    python: 3.6
+# command to run tests
+script:
+    - py.test --cov
+
+after_success:
+    - codecov
