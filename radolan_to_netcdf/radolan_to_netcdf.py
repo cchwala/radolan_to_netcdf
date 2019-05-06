@@ -21,16 +21,18 @@ def create_empty_netcdf(fn, product_name=None, product_config_dict=None):
         Dictionary holding the parameters required for building
         a NetCDF file with the correct dimensions, variables names
         and attributes. Use this if your product is not yet supported
-        via passing it as `product_name` (which is the preferred way).
+        via passing only the `product_name` (which is the preferred way).
+        The `product_name` always has to be supplied in addition to
+        this variable.
 
     """
 
     if not product_name and not product_config_dict:
         raise ValueError('Either product_name or product_config_dict '
                          'have to be supplied.')
-    elif product_name and product_config_dict:
-        raise ValueError('product_name and product_config_dict must '
-                         'not be supplied at the same time.')
+    elif not product_name and product_config_dict:
+        raise ValueError('A product_name has to be supplied when supplying '
+                         'a product_config_dict.')
     elif product_name and not product_config_dict:
         product_config_dict = radolan_product_netcdf_config[product_name]
     else:
