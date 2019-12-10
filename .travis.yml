@@ -15,12 +15,12 @@ before_install:
     - chmod +x miniconda.sh
     - ./miniconda.sh -b
     - export PATH=/home/travis/miniconda2/bin:$PATH
-    - conda config --add channels conda-forge
+    - conda config --prepend channels conda-forge
     - conda update --yes conda
     - conda info -a
 
 install:
-    - conda create -q -n radola_to_netcdf-env python=${TRAVIS_PYTHON_VERSION} --yes
+    - conda create -q -n radola_to_netcdf-env python=${TRAVIS_PYTHON_VERSION} --yes --strict-channel-priority
     - source activate radola_to_netcdf-env
     - conda install --yes $DEPS pip
     - conda install -c conda-forge --yes codecov
