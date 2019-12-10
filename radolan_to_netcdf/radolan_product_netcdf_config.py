@@ -17,6 +17,38 @@ metadata_per_timestamp = {
             'long_name': 'List of radar locations available at time stamp'
         },
     },
+    'secondary': {
+        'variable_parameters': {
+            'datatype': 'i1',  # TODO: Check if NetCDF4 support bools
+            'dimensions': ('time', 'y', 'x'),
+            'chunksizes': (1, 900, 900),
+            'fill_value': -9999,
+            'zlib': True,
+            'complevel': 5,
+        },
+        'attributes': {
+            'long_name': 'Regions filled in with interpolated station data',
+            'standard_name': 'secondary',
+            'coordinates': 'longitudes latitudes',
+            'grid_mapping': 'RADOLAN_grid',
+        },
+    },
+    'nodatamask': {
+        'variable_parameters': {
+            'datatype': 'i1',  # TODO: Check if NetCDF4 support bools
+            'dimensions': ('time', 'y', 'x'),
+            'chunksizes': (1, 900, 900),
+            'fill_value': -9999,
+            'zlib': True,
+            'complevel': 5,
+        },
+        'attributes': {
+            'long_name': 'Regions with no data',
+            'standard_name': 'secondary',
+            'coordinates': 'longitudes latitudes',
+            'grid_mapping': 'RADOLAN_grid',
+        },
+    },
 }
 
 radolan_product_netcdf_config = {
@@ -26,6 +58,7 @@ radolan_product_netcdf_config = {
                 'variable_parameters': {
                     'datatype': 'i2',
                     'dimensions': ('time', 'y', 'x'),
+                    'chunksizes': (1, 900, 900),
                     'fill_value': -9999,
                     'zlib': True,
                     'complevel': 5,
