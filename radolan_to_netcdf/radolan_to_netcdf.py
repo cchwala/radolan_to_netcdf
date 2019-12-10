@@ -191,7 +191,16 @@ def append_to_netcdf(fn, data_list, metadata_list):
                 temp_data[np.isnan(temp_data)] = fill_value_float
             else:
                 temp_data = data
-            nc_fh['rainfall_amount'][i_new, :, :] = temp_data
+            nc_fh[variable_name][i_new, :, :] = temp_data
+
+            # TODO: Remove this hardcoding of writing `secondary` and `nodatamask`
+            secondary = np.zeros_like(data, dtype='bool').flatten()
+            secondary[metadata['secondary']] = True
+            nc_fh['secondary'][i_new, :,: ] = secondary.reshape(data.shape)
+
+            nodatamask = np.zeros_like(data, dtype='bool').flatten()
+            nodatamask[metadata['nodatamask']] = True
+            nc_fh['nodatamask'][i_new, :, :] = nodatamask.reshape(data.shape)
 
             # TODO make this more flexible and also test for it !!!
             nc_fh['maxrange'][i_new] = int(metadata['maxrange'].split(' ')[0])
