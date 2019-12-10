@@ -202,6 +202,10 @@ def append_to_netcdf(fn, data_list, metadata_list):
             nodatamask[metadata['nodatamask']] = True
             nc_fh['nodatamask'][i_new, :, :] = nodatamask.reshape(data.shape)
 
+            cluttermask = np.zeros_like(data, dtype='bool').flatten()
+            cluttermask[metadata['cluttermask']] = True
+            nc_fh['cluttermask'][i_new, :, :] = cluttermask.reshape(data.shape)
+
             # TODO make this more flexible and also test for it !!!
             nc_fh['maxrange'][i_new] = int(metadata['maxrange'].split(' ')[0])
             nc_fh['radarlocations'][i_new] = ' '.join(
