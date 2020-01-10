@@ -29,3 +29,19 @@ class TestWradlibMetadataToHeader(unittest.TestCase):
         self.assertTrue(
             'Currently only RADOALN-RW is supported' in str(context.exception)
         )
+
+
+class TestWradlibDataToByteArray(unittest.TestCase):
+    def test_RW(self):
+        for fn_radolan_file in get_test_data_for_product('RW'):
+            data, metadata = radolan_to_netcdf.read_in_one_bin_file(
+                fn_radolan_file)
+
+            with wrl.io.radolan.get_radolan_filehandle(fn_radolan_file) as f:
+                header = wrl.io.radolan.read_radolan_header(f)
+                attrs = wrl.io.radolan.parse_dwd_composite_header(header)
+                reference = wrl.io.read_radolan_binary_array(f, attrs['datasize'])
+
+            actual = wradlib_to_radolan_bin.data_to_byte_array(data)
+
+            assert actual == reference

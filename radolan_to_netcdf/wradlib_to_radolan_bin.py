@@ -86,3 +86,17 @@ def metadata_to_header(metadata):
     header_out = b''.join(header_out).decode()
 
     return header_out
+
+def data_to_byte_array(data):
+    """
+
+    Parameters
+    ----------
+    data
+
+    Returns
+    -------
+
+    """
+
+    pass
