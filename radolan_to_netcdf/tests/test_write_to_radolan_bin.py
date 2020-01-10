@@ -64,22 +64,11 @@ class TestWradlibToRadolanBinaryRoundtrip(unittest.TestCase):
             data_reference, metadata_reference = radolan_to_netcdf.read_in_one_bin_file(
                 fn_radolan_file)
 
-            # TODO Remove this
-            # Add some errors to data and metadata for testing so that test can fail
-            #data_reference[500,500] = 42.0
-            metadata_reference['precision'] = 0.01
-
             wradlib_to_radolan_bin.write_to_radolan_bin_file(
                 fn='test_radolan.bin',
                 data=data_reference,
                 metadata=metadata_reference,
             )
-
-            # TODO Remove this
-            # Load reference file again to revert the introduced artificially
-            # errors from above
-            data_reference, metadata_reference = radolan_to_netcdf.read_in_one_bin_file(
-                fn_radolan_file)
 
             data_actual, metadata_actual = radolan_to_netcdf.read_in_one_bin_file(
                 'test_radolan.bin')
