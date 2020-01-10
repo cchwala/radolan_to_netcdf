@@ -100,6 +100,9 @@ def data_to_byte_array(data , metadata):
 
     """
 
+    if metadata['producttype'] != 'RW':
+        raise NotImplementedError('Currently only RADOALN-RW is supported')
+
     arr = (data / metadata['precision']).flatten().astype(np.uint16)
 
     secondary = np.zeros_like(arr, dtype=np.uint16)

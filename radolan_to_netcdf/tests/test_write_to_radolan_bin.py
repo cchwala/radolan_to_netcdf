@@ -45,3 +45,14 @@ class TestWradlibDataToByteArray(unittest.TestCase):
             actual = wradlib_to_radolan_bin.data_to_byte_array(data, metadata)
 
             assert actual == reference
+
+    def test_not_RW_error(self):
+        with self.assertRaises(NotImplementedError) as context:
+            fn_radolan_files = get_test_data_for_product('YW')
+            data, metadata = radolan_to_netcdf.read_in_one_bin_file(
+                fn_radolan_files[0])
+            wradlib_to_radolan_bin.data_to_byte_array(data, metadata)
+
+        self.assertTrue(
+            'Currently only RADOALN-RW is supported' in str(context.exception)
+        )
