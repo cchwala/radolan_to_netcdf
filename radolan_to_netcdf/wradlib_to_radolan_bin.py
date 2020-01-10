@@ -87,16 +87,30 @@ def metadata_to_header(metadata):
 
     return header_out
 
-def data_to_byte_array(data):
+def data_to_byte_array(data , metadata):
     """
 
     Parameters
     ----------
     data
+    metadata
 
     Returns
     -------
 
     """
 
-    pass
+    arr = (data / metadata['precision']).flatten().astype(np.uint16)
+
+    secondary = np.zeros_like(arr, dtype=np.uint16)
+    secondary[metadata['secondary']] = 0x1000
+
+    nodatamask = np.zeros_like(arr, dtype=np.uint16)
+    nodatamask[metadata['nodatamask']] = 0b0010100111000100
+
+    cluttermask = np.zeros_like(arr, dtype=np.uint16)
+    cluttermask[metadata['cluttermask']] = 0x8000
+
+    arr = arr | secondary | nodatamask | cluttermask
+
+    return arr.tobytes()

@@ -42,6 +42,6 @@ class TestWradlibDataToByteArray(unittest.TestCase):
                 attrs = wrl.io.radolan.parse_dwd_composite_header(header)
                 reference = wrl.io.read_radolan_binary_array(f, attrs['datasize'])
 
-            actual = wradlib_to_radolan_bin.data_to_byte_array(data)
+            actual = wradlib_to_radolan_bin.data_to_byte_array(data, metadata)
 
             assert actual == reference
