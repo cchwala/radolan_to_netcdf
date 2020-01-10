@@ -117,3 +117,26 @@ def data_to_byte_array(data , metadata):
     arr = arr | secondary | nodatamask | cluttermask
 
     return arr.tobytes()
+
+
+def write_to_radolan_bin_file(fn, data, metadata):
+    """
+
+    Parameters
+    ----------
+    fn
+    data
+    metadata
+
+    Returns
+    -------
+
+    """
+
+    data_as_byte_str = data_to_byte_array(data, metadata)
+    header_as_byte_str = metadata_to_header(metadata)
+
+    with open(fn, mode='wb') as f:
+        f.write(header_as_byte_str.encode())
+        f.write(b'\x03')
+        f.write(data_as_byte_str)

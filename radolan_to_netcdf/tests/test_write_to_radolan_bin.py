@@ -56,3 +56,42 @@ class TestWradlibDataToByteArray(unittest.TestCase):
         self.assertTrue(
             'Currently only RADOALN-RW is supported' in str(context.exception)
         )
+
+
+class TestWradlibToRadolanBinaryRoundtrip(unittest.TestCase):
+    def test_RW(self):
+        for fn_radolan_file in get_test_data_for_product('RW'):
+            data_reference, metadata_reference = radolan_to_netcdf.read_in_one_bin_file(
+                fn_radolan_file)
+
+            # TODO Remove this
+            # Add some errors to data and metadata for testing so that test can fail
+            #data_reference[500,500] = 42.0
+            metadata_reference['precision'] = 0.01
+
+            wradlib_to_radolan_bin.write_to_radolan_bin_file(
+                fn='test_radolan.bin',
+                data=data_reference,
+                metadata=metadata_reference,
+            )
+
+            # TODO Remove this
+            # Load reference file again to revert the introduced artificially
+            # errors from above
+            data_reference, metadata_reference = radolan_to_netcdf.read_in_one_bin_file(
+                fn_radolan_file)
+
+            data_actual, metadata_actual = radolan_to_netcdf.read_in_one_bin_file(
+                'test_radolan.bin')
+
+            np.testing.assert_almost_equal(data_actual, data_reference)
+
+            assert list(metadata_actual.keys()) == list(metadata_reference.keys())
+
+            for key in metadata_reference.keys():
+                try:
+                    np.testing.assert_almost_equal(
+                        metadata_actual[key], metadata_reference[key]
+                    )
+                except TypeError:
+                    assert metadata_actual[key] == metadata_reference[key]
