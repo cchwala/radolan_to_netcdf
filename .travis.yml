@@ -23,7 +23,7 @@ before_install:
 install:
     - conda create -q -n radola_to_netcdf-env python=${TRAVIS_PYTHON_VERSION} --yes --strict-channel-priority
     - source activate radola_to_netcdf-env
-    - conda install --yes $DEPS pip
+    - conda install --yes $DEPS pip --strict-channel-priority
     - conda install -c conda-forge --yes codecov
     #- pip install coveralls
     - pip install pytest pytest-cov
