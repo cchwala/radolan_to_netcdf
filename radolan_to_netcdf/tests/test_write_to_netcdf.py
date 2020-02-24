@@ -36,9 +36,34 @@ def parse_and_validate_test_data(product_name):
 
     os.remove(fn)
 
-class TestWriteToFile(unittest.TestCase):
-    def test_RW(self):
-        parse_and_validate_test_data(product_name='RW')
-    def test_YW(self):
-        parse_and_validate_test_data(product_name='YW')
 
+def test_RW():
+    parse_and_validate_test_data(product_name='RW')
+
+
+def test_YW():
+    parse_and_validate_test_data(product_name='YW')
+
+
+def test_flagged_pixels():
+    fn_radolan_files = get_test_data_for_product(product_name='RW')
+    fn_bin = fn_radolan_files[0]
+    data, metadata = radolan_to_netcdf.read_in_one_bin_file(fn_bin)
+    # Write file to NetCDF
+    fn = 'test.nc'
+    radolan_to_netcdf.create_empty_netcdf(fn, product_name='RW')
+    radolan_to_netcdf.append_to_netcdf(fn, [data, ], [metadata, ])
+
+    for flag_name in ['secondary', 'nodatamask', 'cluttermask']:
+
+        # Read back and check flagged pixels
+        with netCDF4.Dataset(fn, mode='r') as ds:
+            # Get data as matrix from NetCDF and derive the non-zero indices
+            # because this is how they are stored in RADOLAN bin files and
+            # wradlib returns them that way
+            actual = np.nonzero(ds[flag_name][0, :, :].flatten())[0]
+            reference = metadata[flag_name]
+
+            np.testing.assert_almost_equal(actual, reference)
+
+    os.remove(fn)
