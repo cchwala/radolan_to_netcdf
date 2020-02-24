@@ -15,17 +15,10 @@ radolan_to_netcdf
 
 
 
-Python package to parser RADOLAN binary data files to NetCDF
-
+Python package to parse RADOLAN binary data files to NetCDF
 
 * Free software: BSD license
-* Documentation: https://radolan-to-netcdf.readthedocs.io.
 
-
-Features
---------
-
-* TODO
 
 Credits
 -------
