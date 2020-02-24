@@ -5,21 +5,10 @@ import glob
 import netCDF4
 import numpy as np
 from numpy.testing import assert_almost_equal
+
 from radolan_to_netcdf import radolan_to_netcdf
+from radolan_to_netcdf.tests.tools import get_test_data_for_product
 
-
-def get_test_data_path():
-    return pkg_resources.resource_filename('radolan_to_netcdf',
-                                           'tests/test_data')
-
-def get_test_data_for_product(product_name):
-    fn_patterns = {
-        'RW': 'radolan_rw/raa01-rw_10000-181122*---bin.gz',
-        'YW': 'radolan_yw/raa01-yw2017.002_10000*bin.gz'
-    }
-
-    return glob.glob(os.path.join(get_test_data_path(),
-                                  fn_patterns[product_name]))
 
 def parse_and_validate_test_data(product_name):
     fn = 'test.nc'
