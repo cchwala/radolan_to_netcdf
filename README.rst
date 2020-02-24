@@ -6,7 +6,7 @@ radolan_to_netcdf
 .. image:: https://img.shields.io/travis/cchwala/radolan_to_netcdf.svg
         :target: https://travis-ci.org/cchwala/radolan_to_netcdf
 
-.. image:: https://img.shields.io/codecov/c/github/cchwala/radolan_to_netcdf
+.. image:: https://img.shields.io/codecov/c/github/cchwala/radolan_to_netcdf.svg
         :target: https://codecov.io/gh/cchwala/radolan_to_netcdf
 
 .. image:: https://img.shields.io/pypi/v/radolan_to_netcdf.svg
