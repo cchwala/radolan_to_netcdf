@@ -140,7 +140,7 @@ def read_in_one_bin_file(f):
         data, metadata = wrl.io.read_radolan_composite(f, missing=np.nan)
         return data, metadata
     except:
-        print f
+        print(f)
         return None
 
 def append_to_netcdf(fn, data_list, metadata_list):
