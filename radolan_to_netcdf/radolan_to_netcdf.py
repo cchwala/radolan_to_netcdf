@@ -136,12 +136,8 @@ def create_empty_netcdf(fn, product_name=None, product_config_dict=None):
 
 
 def read_in_one_bin_file(f):
-    try:
-        data, metadata = wrl.io.read_radolan_composite(f, missing=np.nan)
-        return data, metadata
-    except:
-        print(f)
-        return None
+    data, metadata = wrl.io.read_radolan_composite(f, missing=np.nan)
+    return data, metadata
 
 def append_to_netcdf(fn, data_list, metadata_list):
     """ Append RADOLAN data and metadata to existing NetCDF
