@@ -45,6 +45,10 @@ def test_YW():
     parse_and_validate_test_data(product_name='YW')
 
 
+#def test_RY():
+#    parse_and_validate_test_data(product_name='RY')
+
+
 def test_flagged_pixels():
     fn_radolan_files = get_test_data_for_product(product_name='RW')
     fn_bin = fn_radolan_files[0]
