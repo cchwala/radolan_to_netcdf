@@ -11,26 +11,24 @@ from radolan_to_netcdf.tests.tools import get_test_data_for_product
 
 
 def parse_and_validate_test_data(product_name):
-    fn = 'test.nc'
+    fn = "test.nc"
     radolan_to_netcdf.create_empty_netcdf(fn, product_name=product_name)
 
     data_list, metadata_list = [], []
 
     for fn_radolan_file in get_test_data_for_product(product_name):
-        data, metadata = radolan_to_netcdf.read_in_one_bin_file(
-            fn_radolan_file)
+        data, metadata = radolan_to_netcdf.read_in_one_bin_file(fn_radolan_file)
         data_list.append(data)
         metadata_list.append(metadata)
 
     radolan_to_netcdf.create_empty_netcdf(fn=fn, product_name=product_name)
 
     radolan_to_netcdf.append_to_netcdf(
-        fn=fn,
-        data_list=data_list,
-        metadata_list=metadata_list)
+        fn=fn, data_list=data_list, metadata_list=metadata_list
+    )
 
-    with netCDF4.Dataset(fn, mode='r') as ds:
-        actual = ds['rainfall_amount'][:].filled(np.nan).sum(axis=0)
+    with netCDF4.Dataset(fn, mode="r") as ds:
+        actual = ds["rainfall_amount"][:].filled(np.nan).sum(axis=0)
         reference = np.stack(data_list, axis=2).sum(axis=2)
         assert_almost_equal(actual, reference)
 
@@ -38,26 +36,38 @@ def parse_and_validate_test_data(product_name):
 
 
 def test_RW():
-    parse_and_validate_test_data(product_name='RW')
+    parse_and_validate_test_data(product_name="RW")
 
 
 def test_YW():
-    parse_and_validate_test_data(product_name='YW')
+    parse_and_validate_test_data(product_name="YW")
+
+
+def test_RY():
+    parse_and_validate_test_data(product_name="RY")
 
 
 def test_flagged_pixels():
-    fn_radolan_files = get_test_data_for_product(product_name='RW')
+    fn_radolan_files = get_test_data_for_product(product_name="RW")
     fn_bin = fn_radolan_files[0]
     data, metadata = radolan_to_netcdf.read_in_one_bin_file(fn_bin)
     # Write file to NetCDF
-    fn = 'test.nc'
-    radolan_to_netcdf.create_empty_netcdf(fn, product_name='RW')
-    radolan_to_netcdf.append_to_netcdf(fn, [data, ], [metadata, ])
+    fn = "test.nc"
+    radolan_to_netcdf.create_empty_netcdf(fn, product_name="RW")
+    radolan_to_netcdf.append_to_netcdf(
+        fn,
+        [
+            data,
+        ],
+        [
+            metadata,
+        ],
+    )
 
-    for flag_name in ['secondary', 'nodatamask', 'cluttermask']:
+    for flag_name in ["secondary", "nodatamask", "cluttermask"]:
 
         # Read back and check flagged pixels
-        with netCDF4.Dataset(fn, mode='r') as ds:
+        with netCDF4.Dataset(fn, mode="r") as ds:
             # Get data as matrix from NetCDF and derive the non-zero indices
             # because this is how they are stored in RADOLAN bin files and
             # wradlib returns them that way
