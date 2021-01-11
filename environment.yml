@@ -9,6 +9,7 @@ dependencies:
  - numpy
  - tqdm
  - hvplot
+ - geoviews
  - datashader
  - pyproj
  - jupyterlab
