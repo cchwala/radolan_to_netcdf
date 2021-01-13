@@ -4,18 +4,25 @@
 
 [![Code Coverage](https://img.shields.io/codecov/c/github/cchwala/radolan_to_netcdf.svg)](https://codecov.io/gh/cchwala/radolan_to_netcdf)
 
-[![pypi](https://img.shields.io/pypi/v/radolan_to_netcdf.svg)(https://pypi.python.org/pypi/radolan_to_netcdf)
+[![pypi](https://img.shields.io/pypi/v/radolan_to_netcdf.svg)](https://pypi.python.org/pypi/radolan_to_netcdf)
+
+A Python package to parse RADOLAN binary data files to NetCDF
 
 ## Example usage
 
-[![Create RADOALN-RY NetCDF](images/create_radolan_ry_netcdf.gif)
+Assuming that you have some RADOLAN binary files on your hard drive it only takes some lines of code using `radolan_to_netcdf` (imported as `rtn` in the example below) to create a [CF-conform](http://cfconventions.org/) NetCDF:
 
-Python package to parse RADOLAN binary data files to NetCDF
+![Create RADOLAN-RY NetCDF](images/create_radolan_ry_netcdf.gif)
 
-* Free software: BSD license
+For the full example using RADOLAN-RY data (5-minute radar rainfall composite for Germany), see [this notebook](notebooks/example_download_and_parse_radolan-ry_data.ipynb)
 
+The created NetCDF can easily be plotted on a dynamic map thanks to [`xarray`](http://xarray.pydata.org) and ['hvplot'](https://hvplot.holoviz.org/) with a time-slider:
+
+![RADOLAN-RY map animation](images/radolan_ry_map_animation.gif)
 
 ## Credits
 
-This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage) project template.
+* Parsing the RADOLAN binary files is done using [`wradlib`](https://wradlib.org/).
+* The [RADOLAN radar products](https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_poster_201711_en_pdf.pdf;jsessionid=4E56FC617A4463815FE89E1247830E81.live11042?__blob=publicationFile&v=2) are produced by the [German Meteorological Service (DWD)](https://www.dwd.de). For most of them the data is openly shared at https://opendata.dwd.de/.
+* This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage) project template.
 
