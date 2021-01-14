@@ -1,0 +1,20 @@
+name: radolan_to_netcdf
+channels:
+  - conda-forge
+dependencies:
+ - python==3.8
+ - wradlib>=1.2.1
+ - netCDF4
+ - xarray
+ - numpy
+ - tqdm
+ - hvplot
+ - geoviews
+ - datashader
+ - pyproj
+ - jupyterlab
+ - pytest
+ - pip
+ - pip:
+   - git+https://github.com/cchwala/radolan_to_netcdf.git#egg=radolan_to_netcdf
+

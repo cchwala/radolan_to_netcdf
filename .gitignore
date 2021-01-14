@@ -1,3 +1,8 @@
+.vscode
+.DS_Store
+raa*bin
+raa*bin.gz
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
