@@ -6,6 +6,8 @@
 
 [![pypi](https://img.shields.io/pypi/v/radolan_to_netcdf.svg)](https://pypi.python.org/pypi/radolan_to_netcdf)
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/fancy_readme)
+
 A Python package to parse RADOLAN binary data files to NetCDF
 
 ## Example usage
@@ -26,7 +28,7 @@ for fn in tqdm.tqdm(fn_list):
 
 ![Create RADOLAN-RY NetCDF](images/create_radolan_ry_netcdf.gif)
 
-For the full example using RADOLAN-RY data (5-minute radar rainfall composite for Germany), see [this notebook](notebooks/example_download_and_parse_radolan-ry_data.ipynb)
+For the full example using RADOLAN-RY data (5-minute radar rainfall composite for Germany), see the notebook [here](notebooks/example_download_and_parse_radolan-ry_data.ipynb) or open it on [mybinder](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/fancy_readme?filepath=notebooks%2Fexample_download_and_parse_radolan-ry_data.ipynb)
 
 The created NetCDF can easily be plotted on a dynamic map thanks to [`xarray`](http://xarray.pydata.org) and [`hvplot`](https://hvplot.holoviz.org/) with a time-slider:
 
