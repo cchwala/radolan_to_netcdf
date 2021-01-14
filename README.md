@@ -10,6 +10,16 @@
 
 A Python package to parse RADOLAN binary data files to NetCDF
 
+## Features
+
+* create CF-conform NetCDFs for RADOLAN data and parse RADOLAN binary files
+* write back to RADOLAN-binary format
+* supported products:
+    * RADOLAN-RW (gauge adjusted hourly rainfall sum)
+    * RADOLAN-RY (5-minute unadjusted rainfall sum), [example notebook](notebooks/example_download_and_parse_radolan-ry_data.ipynb) also available on [mybinder](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/fancy_readme?filepath=notebooks%2Fexample_download_and_parse_radolan-ry_data.ipynb)
+    * RADKLIM-YW (5-minute rainfall sum with "climatological" corrections), [example notebook](notebooks/example_download_and_parse_radklim-yw_data.ipynb) also available on [mybinder](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/fancy_readme?filepath=notebooks%2Fexample_download_and_parse_radklim-yw_data.ipynb)
+
+
 ## Example usage
 
 Assuming that you have some RADOLAN binary files on your hard drive it only takes some lines of code using `radolan_to_netcdf` (imported as `rtn` in the example below) to create a [CF-conform](http://cfconventions.org/) NetCDF:
