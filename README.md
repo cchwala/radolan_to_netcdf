@@ -22,7 +22,7 @@ A Python package to parse RADOLAN binary data files to NetCDF
 
 ## Example usage
 
-Assuming that you have some RADOLAN binary files on your hard drive it only takes some lines of code using `radolan_to_netcdf` (imported as `rtn` in the example below) to create a [CF-conform](http://cfconventions.org/) NetCDF:
+Assuming that you have some RADOLAN binary files on your hard drive it only takes some lines of code using `radolan_to_netcdf` to create a [CF-conform](http://cfconventions.org/) NetCDF:
 
 ```python
 import tqdm
@@ -40,7 +40,7 @@ for fn in tqdm.tqdm(fn_list):
 
 For the full example using RADOLAN-RY data (5-minute radar rainfall composite for Germany), see the notebook [here](notebooks/example_download_and_parse_radolan-ry_data.ipynb) or open it on [mybinder](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/fancy_readme?filepath=notebooks%2Fexample_download_and_parse_radolan-ry_data.ipynb)
 
-The created NetCDF can easily be plotted on a dynamic map thanks to [`xarray`](http://xarray.pydata.org) and [`hvplot`](https://hvplot.holoviz.org/) with a time-slider:
+The content of the created NetCDF can easily be plotted on a dynamic map thanks to [`xarray`](http://xarray.pydata.org) and [`hvplot`](https://hvplot.holoviz.org/) with a time-slider:
 
 ```python
 import xarray as xr
@@ -67,6 +67,6 @@ plot.opts('Image', clipping_colors={'min': 'transparent', 'NaN': 'gray'}, alpha=
 ## Credits
 
 * Parsing the RADOLAN binary files is done using [`wradlib`](https://wradlib.org/).
-* The [RADOLAN radar products](https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_poster_201711_en_pdf.pdf;jsessionid=4E56FC617A4463815FE89E1247830E81.live11042?__blob=publicationFile&v=2) are produced by the [German Meteorological Service (DWD)](https://www.dwd.de). For most of them the data is openly shared at https://opendata.dwd.de/.
+* The [RADOLAN radar products](https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_poster_201711_en_pdf.pdf;jsessionid=4E56FC617A4463815FE89E1247830E81.live11042?__blob=publicationFile&v=2) are produced by the [German Meteorological Service (DWD)](https://www.dwd.de).  Many of these products are openly available at https://opendata.dwd.de/.
 * This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage) project template.
 
