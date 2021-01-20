@@ -1,6 +1,8 @@
 # radolan_to_netcdf
 
-[![Build Status](https://img.shields.io/travis/cchwala/radolan_to_netcdf.svg)](https://travis-ci.org/cchwala/radolan_to_netcdf) [![Code Coverage](https://img.shields.io/codecov/c/github/cchwala/radolan_to_netcdf.svg)](https://codecov.io/gh/cchwala/radolan_to_netcdf) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/HEAD)
+[![Build Status](https://img.shields.io/travis/cchwala/radolan_to_netcdf.svg)](https://travis-ci.org/cchwala/radolan_to_netcdf) [![Code Coverage](https://img.shields.io/codecov/c/github/cchwala/radolan_to_netcdf.svg)](https://codecov.io/gh/cchwala/radolan_to_netcdf) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cchwala/radolan_to_netcdf/HEAD) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4452204.svg)](https://doi.org/10.5281/zenodo.4452204)
+
+
 
 A Python package to parse RADOLAN binary data files to NetCDF
 
