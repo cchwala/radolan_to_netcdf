@@ -170,6 +170,13 @@ def append_to_netcdf(fn, data_list, metadata_list):
             )
 
             product_name = metadata["producttype"]
+
+            #here's the new bit, since DWD calls both products "RW"
+            if product_name == "RW" and "reanalysisversion" in metadata:
+                product_name = "RW-reprocessed"
+            else:
+                product_name = "RW-recent"
+
             product_config_dict = radolan_product_netcdf_config[product_name]
 
             if product_name != nc_fh.producttype:

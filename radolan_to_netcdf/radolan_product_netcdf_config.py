@@ -66,7 +66,7 @@ metadata_per_timestamp = {
 }
 
 radolan_product_netcdf_config = {
-    "RW": {
+    "RW-recent": {
         "variables": {
             "rainfall_amount": {
                 "variable_parameters": {
@@ -94,6 +94,36 @@ radolan_product_netcdf_config = {
             "n_lons": 900,
         },
     },
+
+    "RW-reprocessed": {
+        "variables": {
+            "rainfall_amount": {
+                "variable_parameters": {
+                    "datatype": "i2",
+                    "dimensions": ("time", "y", "x"),
+                    "chunksizes": (1, 1100, 900),
+                    "fill_value": -9999,
+                    "zlib": True,
+                    "complevel": 5,
+                },
+                "attributes": {
+                    "long_name": "Hourly rainfall",
+                    "standard_name": "rainfall_amount",
+                    "units": "kg",
+                    "scale_factor": 0.1,
+                    "add_offset": 0,
+                    "coordinates": "longitudes latitudes",
+                    "grid_mapping": "RADOLAN_grid",
+                },
+            },
+        },
+        "metadata_per_timestamp": metadata_per_timestamp,
+        "metadata_fixed": {
+            "n_lats": 1100,
+            "n_lons": 900,
+        },
+    },
+
     "YW": {
         "variables": {
             "rainfall_amount": {
