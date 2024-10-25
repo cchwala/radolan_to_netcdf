@@ -17,7 +17,7 @@ metadata_per_timestamp = {
     },
     "secondary": {
         "variable_parameters": {
-            "datatype": "i1",  # TODO: Check if NetCDF4 support bools
+            "datatype": "i2",  # TODO: Check if NetCDF4 support bools
             "dimensions": ("time", "y", "x"),
             "chunksizes": (1, 900, 900),
             "fill_value": -9999,
@@ -33,7 +33,7 @@ metadata_per_timestamp = {
     },
     "nodatamask": {
         "variable_parameters": {
-            "datatype": "i1",  # TODO: Check if NetCDF4 support bools
+            "datatype": "i2",  # TODO: Check if NetCDF4 support bools
             "dimensions": ("time", "y", "x"),
             "chunksizes": (1, 900, 900),
             "fill_value": -9999,
@@ -49,7 +49,7 @@ metadata_per_timestamp = {
     },
     "cluttermask": {
         "variable_parameters": {
-            "datatype": "i1",  # TODO: Check if NetCDF4 support bools
+            "datatype": "i2",  # TODO: Check if NetCDF4 support bools
             "dimensions": ("time", "y", "x"),
             "chunksizes": (1, 900, 900),
             "fill_value": -9999,
